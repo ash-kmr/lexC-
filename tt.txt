@@ -1,3 +1,2 @@
-int main 
-/*lkdsfmbs;zf;*/
-double gone 
+/*rdgmkl*/
+int karan= 98;
