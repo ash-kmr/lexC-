@@ -16,20 +16,16 @@ endcomment 		["*/"]
 	int line = 1;
 %}
 %%
-{comment} 		{com = 1;	printf("comment line %d\n", line); BEGIN commentscope;}
-{datatype}[ ]	{dtype = 1;printf("found datatype %s line %d\n" ,yytext, line); BEGIN namecn;}
+{comment} 		{com = 1; BEGIN commentscope;}
+{datatype}[ ]	{dtype = 1; BEGIN namecn;}
 <namecn>{valid_name1}|{valid_name2} 		{
-												if(com == 1){
-													printf("valid %s text\n", yytext);
-												}else {
-													printf("Comments required %d \n", line);
+												if(com != 1){
+													printf("Comments required before line %d \n", line);
 												}
 											}
 <namecn>{valid_name3}						{
-												if(com == 1){
-													printf("valid function declaration %s line %d", yytext, line);
-												}else{
-													printf("invalid function declaration %s line %d", yytext, line);
+												if(com != 1){
+													printf("invalid function declaration %s comments required before line %d", yytext, line);
 													BEGIN 0;
 												}
 												line++;
@@ -38,7 +34,7 @@ endcomment 		["*/"]
 
 											}
 <namecn>{invalid_name1}|{invalid_name2}		{
-											printf("line %d syntax error %s \n", line, yytext);
+											printf("line %d declaration error %s \n", line, yytext);
 											line++;
 											BEGIN 0;
 											}
@@ -58,7 +54,6 @@ endcomment 		["*/"]
 
 {line}	 		{
 				line++;
-				printf("line %d\n", line);
 				BEGIN 0;
 				}
 . 	;

@@ -880,34 +880,30 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 19 "test.lex"
-{com = 1;	printf("comment line %d\n", line); BEGIN commentscope;}
+{com = 1; BEGIN commentscope;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 20 "test.lex"
-{dtype = 1;printf("found datatype %s line %d\n" ,yytext, line); BEGIN namecn;}
+{dtype = 1; BEGIN namecn;}
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
 #line 21 "test.lex"
 {
-												if(com == 1){
-													printf("valid %s text\n", yytext);
-												}else {
-													printf("Comments required %d \n", line);
+												if(com != 1){
+													printf("Comments required before line %d \n", line);
 												}
 											}
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 28 "test.lex"
+#line 26 "test.lex"
 {
-												if(com == 1){
-													printf("valid function declaration %s line %d", yytext, line);
-												}else{
-													printf("invalid function declaration %s line %d", yytext, line);
+												if(com != 1){
+													printf("invalid function declaration %s comments required before line %d", yytext, line);
 													BEGIN 0;
 												}
 												line++;
@@ -919,9 +915,9 @@ YY_RULE_SETUP
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 40 "test.lex"
+#line 36 "test.lex"
 {
-											printf("line %d syntax error %s \n", line, yytext);
+											printf("line %d declaration error %s \n", line, yytext);
 											line++;
 											BEGIN 0;
 											}
@@ -929,7 +925,7 @@ YY_RULE_SETUP
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 45 "test.lex"
+#line 41 "test.lex"
 {
 								line++;
 								BEGIN 0;
@@ -937,7 +933,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 49 "test.lex"
+#line 45 "test.lex"
 {
 								BEGIN 0;
 							}
@@ -945,7 +941,7 @@ YY_RULE_SETUP
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 53 "test.lex"
+#line 49 "test.lex"
 {
 					BEGIN 0;
 					com = 0;
@@ -955,24 +951,23 @@ YY_RULE_SETUP
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 59 "test.lex"
+#line 55 "test.lex"
 {
 				line++;
-				printf("line %d\n", line);
 				BEGIN 0;
 				}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 64 "test.lex"
+#line 59 "test.lex"
 ;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 65 "test.lex"
+#line 60 "test.lex"
 ECHO;
 	YY_BREAK
-#line 976 "lex.yy.c"
+#line 971 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(namefn):
 case YY_STATE_EOF(namecn):
@@ -1976,7 +1971,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 65 "test.lex"
+#line 60 "test.lex"
 
 
 int main(int argc, char* argv[]){
