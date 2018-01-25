@@ -5,8 +5,8 @@ valid_name2		[a-z][a-z0-9]*[\ ]*=*[^;,\n]*[\ ;,]?
 valid_name3		[a-z][a-z0-9_]*[\ ]*[(].*[)][\ ]*[{][\ \t\n]+
 invalid_name1 	[a-z]+[a-z0-9]*[^a-z0-9=;,"){""(){"\ ]+.*[\ ;,\n]
 invalid_name2	[^a-z\ \n].*[\ \t;,\n]
-comment 		["/*"]
-endcomment 		["*/"]	
+comment 		"/*"
+endcomment 		"*/"
 %s namefn
 %x namecn
 %x commentscope
@@ -40,11 +40,11 @@ endcomment 		["*/"]
 											}
 <commentscope>{line} 		{
 								line++;
+							}
+<commentscope>{endcomment}	{	
 								BEGIN 0;
 							}
-<commentscope>{endcomment}	{
-								BEGIN 0;
-							}
+<commentscope>.				;
 
 <namecn>{line}		{
 					BEGIN 0;

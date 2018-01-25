@@ -1,3 +1,5 @@
-/*gnlxn*/
-int main () ;
-int main;
+/*gnlxn
+asklfjwze
+int mai_n
+wegneklzne;*/
+int a = (b+c) ;
