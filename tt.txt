@@ -1,4 +1,6 @@
 #include<stdio.h>
+/*esfdb*/
+int main 
 /* Checks the weight range. */
 char check_range(float wt2, float min, float max) { 
 if (wt2 > max_ || wt2 < min) 8657return ‘F’;
@@ -7,7 +9,8 @@ if (wt2 > max_ || wt2 < min) 8657return ‘F’;
 
 /* This is the driver function. */
 int main() {
-    float max=100 ,min =10;
+	/*lsfnclds*/
+    float max=100 ,min=10;
     /* Checks the range. */
     printf(“Wt is in range: %c”, check_range(67, min, max));
 }

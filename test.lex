@@ -1,9 +1,9 @@
 datatype 	(char)|(int)|(float)|(double)|(string)
 line 	\n
 valid_name1	[a-z][a-z0-9]*[\ ,;\t\n]
-valid_name2		[a-z][a-z0-9]*[\ ]*=*[^;,\n]*[\ ;,\n]
+valid_name2		[a-z][a-z0-9]*[\ ]*=*[^;,\n]*[\ ;,]?
 valid_name3		[a-z][a-z0-9_]*[\ ]*[(].*[)][\ ]*[{][\ \t\n]+
-invalid_name1 	[a-z]+[a-z0-9]*[^a-z0-9;,"){""(){"\ ]+.*[\ ;,\n]
+invalid_name1 	[a-z]+[a-z0-9]*[^a-z0-9=;,"){""(){"\ ]+.*[\ ;,\n]
 invalid_name2	[^a-z\ \n].*[\ \t;,\n]
 comment 		["/*"]
 endcomment 		["*/"]	
@@ -53,6 +53,7 @@ endcomment 		["*/"]
 <namecn>{line}		{
 					BEGIN 0;
 					com = 0;
+					line++;
 					}
 
 {line}	 		{
